@@ -1,0 +1,188 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.enkime</groupId>
+	<artifactId>standards</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<properties>
+		<log4j.version>1.2.16</log4j.version>
+		<swt.version>3.0.1</swt.version>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>scala-tools.org</id>
+			<name>Scala-Tools Maven2 Repository</name>
+			<url>http://scala-tools.org/repo-releases</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>scala-tools.org</id>
+			<name>Scala-Tools Maven2 Repository</name>
+			<url>http://scala-tools.org/repo-releases</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>net.enkime</groupId>
+			<artifactId>util</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.weiglewilczek.slf4s</groupId>
+			<artifactId>slf4s_2.9.1</artifactId>
+			<version>1.0.7</version>
+		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.miglayout</groupId> -->
+<!-- 			<artifactId>miglayout</artsifactId> -->
+<!-- 			<version>3.7.4</version> -->
+<!-- 		</dependency> -->
+		<dependency>
+			<groupId>org.microemu</groupId>
+			<artifactId>microemu-javase-swt</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>swt</groupId>
+			<artifactId>osgi</artifactId>
+			<version>${swt.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>swt</groupId>
+			<artifactId>runtime</artifactId>
+			<version>${swt.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>swt</groupId>
+			<artifactId>jface</artifactId>
+			<version>${swt.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>swt</groupId>
+			<artifactId>swt-linux-gtk</artifactId>
+			<version>${swt.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>swt</groupId>
+			<artifactId>swt-linux-gtk-pi</artifactId>
+			<version>${swt.version}</version>
+		</dependency>
+		<!-- org.eclipse.core.commands_<version info>.jar -->
+		<!-- org.eclipse.equinox.common_<version info>.jar -->
+		<!-- org.eclipse.jface_<version info>.jar -->
+		<!-- org.eclipse.osgi_<version info>.jar -->
+		<!-- org.eclipse.ui.workbench_<version info>.jar -->
+
+
+		<!-- <dependency> -->
+		<!-- <groupId>org.eclipse</groupId> -->
+		<!-- <artifactId>jface</artifactId> -->
+		<!-- <version>3.3.0-I20070606-0010</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.eclipse.jdt</groupId> -->
+		<!-- <artifactId>core</artifactId> -->
+		<!-- <version>3.3.0-v_771</version> -->
+		<!-- </dependency> -->
+
+		<!-- <dependency> -->
+		<!-- <groupId>org.eclipse.core</groupId> -->
+		<!-- <artifactId>org.eclipse.core.runtime</artifactId> -->
+		<!-- <version>3.6.0.v20100505</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.eclipse.equinox</groupId> -->
+		<!-- <artifactId>org.eclipse.equinox.common</artifactId> -->
+		<!-- <version>3.6.0.v20100503</version> -->
+		<!-- </dependency> -->
+
+
+	</dependencies>
+
+	<build>
+		<sourceDirectory>src/main/scala</sourceDirectory>
+<!-- 		<sourceDirectory>src/main/scala</sourceDirectory> -->
+		<resources>
+			<resource>
+				<directory>model</directory>
+				<excludes>
+					<exclude>**/*.scala</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>application</directory>
+				<excludes>
+					<exclude>**/*.scala</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>${basedir}/src</directory>
+				<includes>
+					<include>**/*.jdo</include>
+					<include>**/*.orm</include>
+					<include>**/*.properties</include>
+				</includes>
+			</resource>
+		</resources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.scala-tools</groupId>
+				<artifactId>maven-scala-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<scalaVersion>${scala.version}</scalaVersion>
+					<args>
+						<arg>-target:jvm-1.5</arg>
+					</args>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<buildcommands>
+						<buildcommand>ch.epfl.lamp.sdt.core.scalabuilder</buildcommand>
+					</buildcommands>
+					<additionalProjectnatures>
+						<projectnature>ch.epfl.lamp.sdt.core.scalanature</projectnature>
+					</additionalProjectnatures>
+					<classpathContainers>
+						<classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
+						<classpathContainer>ch.epfl.lamp.sdt.launching.SCALA_CONTAINER</classpathContainer>
+					</classpathContainers>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.scala-tools</groupId>
+				<artifactId>maven-scala-plugin</artifactId>
+				<configuration>
+					<scalaVersion>${scala.version}</scalaVersion>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+</project>
